@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <input type="text" id="item" placeholder="Add an item...">
+        <button id="addBtn">Add</button>
+        <ul id="to-do-box">
+            </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #888;
+}
+const itemInput = document.getElementById("item");
+const addBtn = document.getElementById("addBtn");
+const toDoBox = document.getElementById("to-do-box");
+
+addBtn.addEventListener("click", () => {
+    const newItem = itemInput.value;
+    if (newItem !== "") {
+        const listItem = document.createElement("li");
+        listItem.textContent = newItem;
+
+        const doneBtn = document.createElement("button");
+        doneBtn.textContent = "Done";
+        doneBtn.classList.add("doneBtn");
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Delete";
+        deleteBtn.classList.add("deleteBtn");
+
+        listItem.appendChild(doneBtn);
+        listItem.appendChild(deleteBtn);
+        toDoBox.appendChild(listItem);
+
+        itemInput.value = "";
+
+        doneBtn.addEventListener("click", () => {
+            listItem.classList.toggle("done");
+        });
+
+        deleteBtn.addEventListener("click", () => {
+            toDoBox.removeChild(listItem);
+        });
+    }
+});
